@@ -9,7 +9,13 @@ const router = express.Router();
 
 //Get all projects
 router.get("/", (req, res) => {
-    res.status(200).send("<h1>This will be a list of projects</h1>");
+    db.getProjects()
+        .then(projects => {
+            res.status(200).json({ projects: projects })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
 });
 
 //Get a specific project - not part of mvp
@@ -19,7 +25,15 @@ router.get("/:id", (req, res) => {
 
 //Post a project
 router.post("/", (req, res) => {
-    res.status(200).send("<h1>This will be where you post projects</h1>")
+    const project = req.body;
+
+    db.addProject(project)
+        .then(response => {
+            res.status(201).json({ message: "Project added!" })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
 });
 
 router.use("/:id/resources", resourcesRouter);
