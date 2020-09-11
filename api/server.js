@@ -25,7 +25,14 @@ server.get("/resources", (req, res) => {
 });
 
 server.get("/tasks", (req, res) => {
-    db("tasks")
+    db
+        .select(
+            "tasks.description as Task Name",
+            "projects.name as Project Name",
+            "projects.description as Project Description")
+        .from("tasks")
+        .join("resources", "tasks.resource_id", "=", "resources.resource_id")
+        .join("projects", "tasks.project_id", "=", "projects.project_id")
         .then(tasks => {
             res.status(200).json({ tasks: tasks });
         })
