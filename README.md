@@ -48,11 +48,19 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
 
 1. Explain the difference between `Relational Databases` and `SQL`.
 
+The concept of "Relational Databases" is a paradigm for storing data on a server. SQL is a query language meant to extract data from relational databases by writing queries for different pieces of data.
+
 2. Why do tables need a `primary key`?
+
+A primary key acts as a unique identifier for each record in that table so that they can be individually accessed or referenced.
 
 3. What is the name given to a table column that references the primary key on another table.
 
+A foreign key
+
 4. What do we need in order to have a _many to many_ relationship between two tables.
+
+This requires a 3rd table that keeps track of how the two other tables are related to one another.
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 
