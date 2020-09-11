@@ -44,12 +44,3 @@ function addTask(task, projectId) {
     return db("tasks")
         .insert(task);
 }
-
-// function getShoppingList(recipe_id) {
-//     return db
-//         .select("ingredient_name as Ingredient", "quantity", "unit")
-//         .from("steps")
-//         .join("dishes", "dishes.id", "=", "steps.dish_id")
-//         .join("ingredients", "ingredients.id", "=", "steps.ingredient_id")
-//         .where({ dish_id: recipe_id });
-// }
