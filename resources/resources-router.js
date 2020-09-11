@@ -6,7 +6,15 @@ const router = express.Router();
 
 //Get all resources for a project
 router.get("/", (req, res) => {
-    res.status(200).send("<h1>This will be a list of project resources</h1>");
+    const projectId = req.projectId;
+    
+    db.getResources(projectId)
+        .then(resources => {
+            res.status(200).json({ resources: resources })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
 });
 
 //Get a specific resource - not part of mvp
@@ -16,7 +24,15 @@ router.get("/:id", (req, res) => {
 
 //Post a new resource for a project
 router.post("/", (req, res) => {
-    res.status(200).send("<h1>This will be where you post resources for a project</h1>")
+    const resource = req.body;
+
+    db.addResource(resource)
+        .then(response => {
+            res.status(201).json({ message: "Resource added!" })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
 });
 
 module.exports = router;

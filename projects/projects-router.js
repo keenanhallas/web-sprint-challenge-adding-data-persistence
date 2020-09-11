@@ -36,7 +36,12 @@ router.post("/", (req, res) => {
         });
 });
 
-router.use("/:id/resources", resourcesRouter);
-router.use("/:id/tasks", tasksRouter);
+router.use("/:id/resources", setId, resourcesRouter);
+router.use("/:id/tasks", setId, tasksRouter);
+
+function setId(req, res, next) {
+    req.projectId = req.params.id;
+    next();
+}
 
 module.exports = router;

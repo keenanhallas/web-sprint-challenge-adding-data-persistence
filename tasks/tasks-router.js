@@ -6,7 +6,15 @@ const router = express.Router();
 
 //Get all tasks for a project
 router.get("/", (req, res) => {
-    res.status(200).send("<h1>This will be a list of project tasks</h1>");
+    const projectId = req.projectId;
+    
+    db.getTasks(projectId)
+        .then(tasks => {
+            res.status(200).json({ tasks: tasks })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
 });
 
 //Get a specific task - not part of mvp
@@ -16,7 +24,16 @@ router.get("/:id", (req, res) => {
 
 //Post a new task for a project
 router.post("/", (req, res) => {
-    res.status(200).send("<h1>This will be where you post tasks for a project</h1>")
+    const task = req.body;
+    const projectId = req.projectId;
+
+    db.addTask(task, projectId)
+        .then(response => {
+            res.status(201).json({ message: "Task added!" })
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
 });
 
 module.exports = router;
